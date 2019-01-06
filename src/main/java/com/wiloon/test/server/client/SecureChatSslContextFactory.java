@@ -24,17 +24,16 @@ public class SecureChatSslContextFactory {
         SSLContext clientContext;
         try {
             String password = "password0";
-            KeyStore ks2 = KeyStore.getInstance("JKS");
 
-            ks2.load(new FileInputStream("/home/wiloon/projects/nettyx/src/main/resources/certs/client.jks"), password.toCharArray());
+
             KeyStore tks2 = KeyStore.getInstance("JKS");
-            tks2.load(new FileInputStream("/home/wiloon/projects/nettyx/src/main/resources/certs/clientTrust.jks"), password.toCharArray());
+            tks2.load(new FileInputStream("/home/wiloon/projects/nettyx/src/main/resources/certs/serverTrust.jks"), password.toCharArray());
             KeyManagerFactory kmf2 = KeyManagerFactory.getInstance(algorithm);
             TrustManagerFactory tmf2 = TrustManagerFactory.getInstance("SunX509");
-            kmf2.init(ks2, password.toCharArray());
+
             tmf2.init(tks2);
             clientContext = SSLContext.getInstance(PROTOCOL);
-            clientContext.init(kmf2.getKeyManagers(), tmf2.getTrustManagers(), null);
+            clientContext.init(null, tmf2.getTrustManagers(), null);
         } catch (Exception e) {
             throw new Error(e);
         }

@@ -27,14 +27,13 @@ public class SecureChatSslContextFactory {
             String password = "password0";
             KeyStore ks = KeyStore.getInstance("JKS");
             ks.load(new FileInputStream("/home/wiloon/projects/nettyx/src/main/resources/certs/server.jks"), password.toCharArray());
-            KeyStore tks = KeyStore.getInstance("JKS");
-            tks.load(new FileInputStream("/home/wiloon/projects/nettyx/src/main/resources/certs/serverTrust.jks"), password.toCharArray());
+
             KeyManagerFactory kmf = KeyManagerFactory.getInstance(algorithm);
             TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
             kmf.init(ks, password.toCharArray());
-            tmf.init(tks);
+
             serverContext = SSLContext.getInstance(PROTOCOL);
-            serverContext.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+            serverContext.init(kmf.getKeyManagers(), null, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
