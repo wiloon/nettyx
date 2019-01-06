@@ -21,7 +21,7 @@ public class Initializer extends ChannelInitializer<SocketChannel> {
         ChannelPipeline pipeline = ch.pipeline();
         SSLEngine engine = SecureChatSslContextFactory.getClientContext().createSSLEngine();
         engine.setUseClientMode(true);
-        engine.setNeedClientAuth(false);
+       // engine.setNeedClientAuth(false);
         pipeline.addLast("ssl", new SslHandler(engine));
 
         pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
