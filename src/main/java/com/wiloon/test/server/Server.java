@@ -22,12 +22,12 @@ public class Server {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
-            ServerBootstrap b = new ServerBootstrap();
-            b.group(bossGroup, workerGroup)
+            ServerBootstrap bootstrap = new ServerBootstrap();
+            bootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new Initializer());
             System.out.println("启动了，端口：" + m_port);
-            ChannelFuture f = b.bind(m_port).sync();
+            ChannelFuture f = bootstrap.bind(m_port).sync();
             f.channel().closeFuture().sync();
         } finally {
             bossGroup.shutdownGracefully();
