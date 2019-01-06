@@ -1,4 +1,4 @@
-package com.wiloon.test.server.client;
+package com.wiloon.test.client;
 
 import io.netty.util.internal.SystemPropertyUtil;
 
